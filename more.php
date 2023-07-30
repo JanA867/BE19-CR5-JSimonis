@@ -4,14 +4,14 @@ require_once "db_connection.php";
 
 session_start();
 
-if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ //if not session user AND not session adm > send to login page
+if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ 
     header("Location: login.php");
        }
 
 
 $id= $_GET["x"];
 
-$sql= "SELECT * FROM animals WHERE id=$id"; //Join tables to see Supplier Information
+$sql= "SELECT * FROM animals WHERE id=$id"; 
 
 $result=mysqli_query($connect, $sql);
 
@@ -28,6 +28,12 @@ if($row["status"] != 'adopted'){
   }else{
     $availability= "<div class='badge bg-danger text-wrap'>adopted</div>";
       };
+$vaccinated="";
+      if($row["vaccinated"] == 2){
+        $vaccinated= "<div class='badge bg-warning text-wrap'>yes</div>";
+        }else{
+          $vaccinated= "<div class='badge bg-danger text-wrap'>no</div>";
+            };
       mysqli_close($connect);
 
 ?>
@@ -65,15 +71,15 @@ if($row["status"] != 'adopted'){
     <div class="mt-3">
     <p><img src="<?="img/$row[picture]"?>" width="200"></p>
     <h2><?=$row["name"] ?></h2>
-    <p>Breed: <?=$row["breed"] ?></p>
-    <p>"<?=$row["description"] ?>"</p>
+    <p class="text-decoration-underline"><?=$row["breed"] ?></p>
+    <p class="fst-italic">"<?=$row["description"] ?>"</p>
     <p>based in <?=$row["location"] ?></p>
     <hr>
     <p>size: <?=$row["size"] ?></p>
     <p>gender: <?=$row["gender"] ?></p>
     <p>age: <?=$row["age"] ?></p>
-    <p>vaccinated: <?=$row["vaccinated"] ?></p>
-    <p><?=$availability?></p>
+    <p>vaccinated: <?=$vaccinated?></p>
+    <p class="fw-bold">Status: <?=$availability?></p>
     <a href="home.php" class="btn btn-outline-warning">Back to home page</a>
 
 

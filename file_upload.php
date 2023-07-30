@@ -9,23 +9,23 @@ function fileUpload($pic, $source="user"){
         }
         $message= "No picture has been choosen, add one later.";
     }else{
-        $checkIfImage= getimagesize($pic["tmp_name"]); //checking if you selected an image, return false if not
+        $checkIfImage= getimagesize($pic["tmp_name"]);
         $message= $checkIfImage ? "Ok" : "Not an Image";
         }
 
     if($message == "Ok"){
-        $ext= strtolower(pathinfo($pic["name"], PATHINFO_EXTENSION)); //taking extension data from img
-        $pictureName= uniqid("").".".$ext; //changing name of img
-        $destination= "img/{$pictureName}"; //where file will be saved
+        $ext= strtolower(pathinfo($pic["name"], PATHINFO_EXTENSION)); 
+        $pictureName= uniqid("").".".$ext; 
+        $destination= "img/{$pictureName}"; 
 
         if($source== "entry"){
             $destination="../img/{$pictureName}";
         }
-        move_uploaded_file($pic["tmp_name"], $destination); //moving file to pic folder
+        move_uploaded_file($pic["tmp_name"], $destination); 
     }elseif($message == "Not an Image"){
-        $pictureName= "Avatar.jpg"; //file name will be avatar.jpg
+        $pictureName= "Avatar.jpg"; 
         $message= "The file that you chose is not an Image.";
     }
 
-    return [$pictureName, $message]; //returning name of pic + message
+    return [$pictureName, $message]; 
 }

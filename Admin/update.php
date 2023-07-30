@@ -4,7 +4,7 @@ require_once "../file_upload.php";
 
 session_start();
 
-if(isset($_SESSION["user"])){ //in case user try to exit index, only for adm
+if(isset($_SESSION["user"])){ 
   header("Location: ../home.php");
 }
 if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){
@@ -15,19 +15,6 @@ $id= $_GET["x"];
 $sql= "SELECT * FROM animals WHERE id=$id";
 $result= mysqli_query($connect, $sql);
 $row= mysqli_fetch_assoc($result);
-
-
-// $resultSupplier=mysqli_query($connect, "SELECT * FROM suppliers");
-// $options="";
-
-// while($supRow=mysqli_fetch_assoc($resultSupplier)){
-//     if($row["fk_supplierId"]==$supRow["supplierId"]){ //difference to create compare ids (fk)
-//         $options.="<option selected value='{$supRow["supplierId"]}'>{$supRow["sup_name"]}</option>";
-//     }else{
-//         $options.="<option value='{$supRow["supplierId"]}'>{$supRow["sup_name"]}</option>";
-
-//     }
-// }
 
 if(isset($_POST["update"])){
     $name= $_POST["name"];
@@ -98,8 +85,6 @@ name="name" value="<?=$row["name"]?>">
             <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <input type="text" class="form-control"  id="description"  aria-describedby="description"  name="description" value="<?=$row["description"]?>">
-            <!-- <span class="input-group-text">Write text</span>
-            <textarea class="form-control" aria-label="With textarea" name="description"></textarea> -->
             </div>
             <!-- size -->
             <div class="mb-3"> 

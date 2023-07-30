@@ -3,11 +3,11 @@
 session_start();
 
 
-if(isset($_SESSION["adm"])){ //if there is a session user i redirect him
+if(isset($_SESSION["adm"])){ 
     header("Location: dashboard.php");
     }
 
-if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ //if not session user AND not session adm > send to login page
+if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ 
      header("Location: login.php");
         }
 require_once "db_connection.php";
@@ -30,7 +30,7 @@ while($rowAnimals=mysqli_fetch_assoc($resultAnimals)){
     <div class='card-body'>
       <h5 class='card-title'>{$rowAnimals["name"]}</h5>
       <a href='more.php?x={$rowAnimals["id"]}' class='btn btn-outline-warning'>Details</a>
-      <a href='more.php?x={$rowAnimals["id"]}' class='btn btn-outline-info'>Adopt</a>
+      <a href='adoption.php?x={$rowAnimals["id"]}' class='btn btn-outline-info'>Adopt</a>
     </div>
     </div>
     </div>";
@@ -38,6 +38,9 @@ while($rowAnimals=mysqli_fetch_assoc($resultAnimals)){
 }else{
     $layout.= "No results found";
 }
+
+
+
 
 ?>
 

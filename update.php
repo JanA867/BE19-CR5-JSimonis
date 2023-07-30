@@ -6,12 +6,10 @@
 
 
 
-if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ //if not session user AND not session adm > send to login page
+if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ 
      header("Location: login.php");
         }
-//  $sql="SELECT*FROM users WHERE id={$_SESSION["user"]}";
-// $result=mysqli_query($connect, $sql);
-// $row=mysqli_fetch_assoc($result);
+
 
    $id= $_GET["x"]; // taking the value of id from the URL
 

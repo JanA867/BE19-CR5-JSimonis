@@ -3,11 +3,11 @@
 session_start();
 
 
-if(isset($_SESSION["user"])){ //if there is a session user i redirect him
+if(isset($_SESSION["user"])){ 
     header("Location: home.php");
     }
 
-if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ //if not session user AND not session adm > send to login page
+if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){ 
      header("Location: login.php");
         }
 
@@ -19,11 +19,11 @@ $result=mysqli_query($connect, $sql);
 $row=mysqli_fetch_assoc($result);
 
 
-$sqlUsers="SELECT * FROM users WHERE status != 'adm'"; //to bring all informations about the User = adm can change/update not just his infos
-$resultUsers= mysqli_query($connect, $sqlUsers); //to run query
+$sqlUsers="SELECT * FROM users WHERE status != 'adm'"; 
+$resultUsers= mysqli_query($connect, $sqlUsers); 
 $layout="";
 
-if(mysqli_num_rows($resultUsers)>0){ //if results we need a loop
+if(mysqli_num_rows($resultUsers)>0){ 
 while($userRow=mysqli_fetch_assoc($resultUsers)){
     $layout.="<div>
     <div class='card' style='width: 18rem;'>

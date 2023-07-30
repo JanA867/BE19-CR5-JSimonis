@@ -5,23 +5,15 @@ require_once "../file_upload.php";
 
 session_start();
 
-if(isset($_SESSION["user"])){ //in case user try to exit index, only for adm
+if(isset($_SESSION["user"])){ 
   header("Location: ../home.php");
 }
 if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){
   header("Location: ../login.php");
 }
 
-// $result=mysqli_query($connect, "SELECT*FROM suppliers"); //Options for Supplier
-// $options="";
-// while($row=mysqli_fetch_assoc($result)){
-//     $options.="<option value='{$row["supplierId"]}'>{$row["sup_name"]}</option>";
-// }
-
-
 
 if(isset($_POST["create"])){
-    // $supplier=isset($_POST["supplier"]) ? $_POST["supplier"] : null; //if (?) supplier has value, then i take it (:) is else then null
     $name= $_POST["name"];
     $breed= $_POST["breed"];
     $age= $_POST["age"];
@@ -30,9 +22,7 @@ if(isset($_POST["create"])){
     $gender= $_POST["gender"];
     $location= $_POST["location"];
     $description= $_POST["description"];
-    $picture= fileUpload($_FILES["picture"], "entry"); //, "product"
-    // echo $name."<br>";
-    // var_dump($picture);
+    $picture= fileUpload($_FILES["picture"], "entry"); 
 
     $sql= "INSERT INTO `animals`(`name`, `breed`, `age`, `size`, `vaccinated`,`gender`, `location`,`description`, `picture`) VALUES ('$name','$breed','$age', '$size', '$vaccinated', '$gender', '$location', '$description','$picture[0]')";
 
@@ -85,8 +75,6 @@ name="name">
             <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <input type="text" class="form-control"  id="description"  aria-describedby="description"  name="description">
-            <!-- <span class="input-group-text">Write text</span>
-            <textarea class="form-control" aria-label="With textarea" name="description"></textarea> -->
             </div>
             <!-- size -->
             <div class="mb-3"> 

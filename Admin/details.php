@@ -3,7 +3,7 @@ require_once "../db_connection.php";
 
 session_start();
 
-if(isset($_SESSION["user"])){ //in case user try to exit index, only for adm
+if(isset($_SESSION["user"])){ 
   header("Location: ../home.php");
 }
 if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){
@@ -12,7 +12,7 @@ if(!isset($_SESSION["user"]) && !isset($_SESSION["adm"])){
 
 $id= $_GET["x"];
 
-$sql= "SELECT * FROM animals WHERE id=$id"; //Join tables to see Supplier Information
+$sql= "SELECT * FROM animals WHERE id=$id"; 
 
 $result=mysqli_query($connect, $sql);
 

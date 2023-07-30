@@ -1,24 +1,23 @@
 <?php
-session_start(); //Start Session for user
+session_start(); 
 
-   require_once "db_connection.php" ; //Connection to DB
+   require_once "db_connection.php" ; 
 
-if(isset($_SESSION["adm"])){ //if there is a session adm i redirect him
+if(isset($_SESSION["adm"])){ 
 header("Location: dashboard.php");
 }
-if(isset($_SESSION["user"])){ //if there is a session user i redirect him
+if(isset($_SESSION["user"])){ 
     header("Location: home.php");
     }
 
 
-   $email=$passError=$emailError=""; //Declare Variables
+   $email=$passError=$emailError=""; 
    $error= false;
 
    function cleanInputs($input){
-    $data = trim($input); // removing extra spaces, tabs, newlines out of the string
-    $data = strip_tags($data); // removing tags from the string
-    $data = htmlspecialchars($data); // converting special characters to HTML entities, something like "<" and ">", it will be replaced by "&lt;" and "&gt";
-
+    $data = trim($input); 
+    $data = strip_tags($data); 
+    $data = htmlspecialchars($data); 
      return $data;
 }
 
@@ -26,28 +25,27 @@ if(isset ($_POST["login"])){
     $email = cleanInputs($_POST["email"]);
     $password = $_POST[ "password"];
 
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ // Validation for email
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ 
         $error = true ;
         $emailError = "Please enter a valid email address" ;
     }
 
-     if (empty ($password)) {      // validation for the password
+     if (empty ($password)) {    
         $error = true ;
         $passError = "Password can't be empty!";
     }
 
-    if(!$error){ // if there is no error > inserted to database > hashing the password 
+    if(!$error){ 
        $password = hash( "sha256", $password);
 
-       //to log-in i want to select specific entry from DB!! > Query
-       $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'" ; //looking for entry with same email + password 
-       $result = mysqli_query($connect, $sql); //run the Query
-       $row = mysqli_fetch_assoc($result); //fetch the data if there is a record match > then all the information is in this variable
+       $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'" ; 
+       $result = mysqli_query($connect, $sql);
+       $row = mysqli_fetch_assoc($result); 
 
-       if (mysqli_num_rows($result) == 1){ //if there is 1 result and only 1
-        if ($row["status"] == "adm" ){ // if the status in the database of that user is admin
-            $_SESSION["adm"] = $row["id"]; // here a new session will be created with the name adm and it will save the user id
-            header( "Location: dashboard.php" ); // admins will be redirected to dashboard page
+       if (mysqli_num_rows($result) == 1){ 
+        if ($row["status"] == "adm" ){ 
+            $_SESSION["adm"] = $row["id"]; 
+            header( "Location: dashboard.php" ); 
         } else  {
             $_SESSION["user"] = $row["id"]; // here a new session will be created with the name user and it will save the user id
             header( "Location: home.php" ); // users will be redirected to home page
